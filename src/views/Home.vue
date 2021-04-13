@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-
+<Login></Login>
   </div>
 </template>
 
@@ -26,14 +26,16 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import Front from "@/components/Front.vue"
-import Products from '../sections/Products.vue'
+import Products from '@/sections/Products.vue'
+import Login from '@/components/Login.vue'
 
 
 export default {
   name: 'Home',
   components: {
     HelloWorld,Front,
-    Products
+    Products,Login
+    
     
   }
 }
