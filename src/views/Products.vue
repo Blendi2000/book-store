@@ -34,6 +34,13 @@
             <td>
               {{product.name}}
               </td>
+              <td>
+              {{product.price}}
+              </td>
+              <td>
+              <button class="btn btn-primary" @click="editProduct(product)">Edit</button>
+              <button class="btn btn-danger" @click="deleteProduct(product)">Delete</button>
+              </td>
           </tr>
         </tbody>
       </table>
@@ -48,7 +55,7 @@
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="editLabel">Add Book</h5>
+              <h5 class="modal-title" id="editLabel">Edit Book</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -63,7 +70,7 @@
                     </div>
 
                     <div class="form-group">
-                      <textarea name="description" placeholder="Book Description" v-model="product.description" class="form-control"></textarea>
+                      <vue-editor v-model="product.description"></vue-editor>
                     </div>
                   </div>
                   <!-- product sidebar -->
@@ -76,30 +83,39 @@
                     </div>
 
                     <div class="form-group">
-                      <input type="text" placeholder="Book tags" v-model="product.tag" class="form-control">
-                      
+                      <input type="text" @keyup.188="addTag" placeholder="Book tags" v-model="tag" class="form-control">
+                      <div class="d-flex">
+                      <p v-for="tag in product.tags">
+                        <span class="p-1">{{tag}}</span>
+                      </p>
                     </div>
-
+                    </div>
 
                     <div class="form-group">
                       <label for="product_image">Book Images</label>
                       <input type="file" @change="uploadImage" class="form-control">
                     </div>
                     <!-- <div class="form-group d-flex">
+                      <div class="p-1" v-for="image in product.images">
+                        <img :src="image" alt="" width="80px">
+                      </div>
+                    </div> -->
+                    <div class="form-group d-flex">
                       <div class="p-1" v-for="(image, index) in product.images">
                           <div class="img-wrapp">
                               <img :src="image" alt="" width="80px">
                               <span class="delete-img" @click="deleteImage(image,index)">X</span>
                           </div>
                       </div>
-                    </div> -->
-
+                    </div>
                   </div>
                 </div>
             </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button @click="addProduct()" type="button" class="btn btn-primary">Save changes</button>
+              <button @click="addProduct()" type="button" class="btn btn-primary" v-if="modal == 'new'">Save changes</button>
+              <button @click="updateProduct()" type="button" class="btn btn-primary" v-if="modal == 'edit'">Apply changes</button>
             </div>
           </div>
         </div>
@@ -108,12 +124,14 @@
 </template>
 
 <script>
-/*eslint-disable */
-
+import {VueEditor} from "vue2-editor";
 import {fb, db} from '../firebase';
 
 export default {
   name: 'Products',
+  components: {
+    VueEditor
+  },
   props: {
     msg: String
   },
@@ -124,10 +142,12 @@ export default {
         name: null,
         description: null,
         price: null,
-        tag: null,
-        image: null,
+        tags: [],
+        images: [],
       },
-      activeItem:null
+      activeItem:null,
+      modal:null,
+      tag: null
     }
   }, 
   firestore(){
@@ -136,23 +156,95 @@ export default {
     }
   },
   methods:{
-    uploadImage(){},
 
+    deleteImage(img,index){
+      let image = fb.storage().refFromURL(img);
+
+      this.product.images.splice(index,1);
+      image.delete().then(function() {
+        console.log('image deleted');
+      }).catch(function(error) {
+        // Uh-oh, an error occurred!
+        console.log('an error occurred');
+      });
+    },
+    addTag(){
+      this.product.tags.push(this.tag);
+      this.tag = "";
+    },
+    uploadImage(e){
+      if(e.target.files[0]){
+        
+          let file = e.target.files[0];
+    
+          var storageRef = fb.storage().ref('products/' + file.name);
+    
+          let uploadTask  = storageRef.put(file);
+    
+          uploadTask.on('state_changed', (snapshot) => {
+            
+          }, (error) => {
+            // Handle unsuccessful uploads
+          }, () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              this.product.images.push(downloadURL);
+              console.log('File awaliable at', downloadURL);
+            });
+          });
+      }
+    },
+    
     addNew(){
-        //this.modal = 'new';
+        this.modal = 'new';
         //this.reset();
         $('#product').modal('show');
     },
     updateProduct(){
+      this.$firestore.products.doc(this.product.id).update(this.product);
+          Toast.fire({
+            type: 'success',
+            title: 'Updated successfully'
+          })
+           $('#product').modal('hide');
     },
     editProduct(product){
+      this.modal = 'edit'
+      this.product = product;
+      $('#product').modal('show');
     },
     deleteProduct(doc){
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          this.$firestore.products.doc(doc['.key']).delete()
+          
+          Toast.fire({
+            type: 'success',
+            title: 'Deleted successfully'
+          })
+        }
+      })
     },
     readData(){
     },
     addProduct(){
       this.$firestore.products.add(this.product);
+
+      Toast.fire({
+            type: 'success',
+            title: 'Product created successfully'
+          })
+
       $('#product').modal('hide');
     }
   },
@@ -162,6 +254,16 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
+<style scoped lang="scss">
+.img-wrapp{
+  position: relative;
+}
+.img-wrapp span.delete-img{
+    position: absolute;
+    top: -14px;
+    left: -2px;
+}
+.img-wrapp span.delete-img:hover{
+  cursor: pointer;
+}
 </style>
