@@ -1,5 +1,7 @@
 import firebase from 'firebase'
-require ("firebase/firestore");
+//require ("firebase/firestore");
+import 'firebase/firestore'
+import 'firebase/storage'
 
 var config = {
     apiKey: "AIzaSyCIBk9KP1Qug6jHnjEJ8xavnHNVE50dQH0",
