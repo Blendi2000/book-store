@@ -48,7 +48,7 @@ export default new Vuex.Store({
           let index = state.cart.indexOf(item);
           state.cart.splice(index,1);
 
-        this.commit('saveData');
+        this.commit('saveData')
 
       },
 
