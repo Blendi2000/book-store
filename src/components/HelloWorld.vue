@@ -1,4 +1,5 @@
 <template>
+<p> Hello</p>
   <div class="hello">
 
   
@@ -6,6 +7,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'HelloWorld',
   props: {
