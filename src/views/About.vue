@@ -24,7 +24,7 @@
       </div>
       <Login></Login>
     <mini-cart></mini-cart>
-    <hr>
+<!-- Footer--><hr>
 <footer class="page-footer">
   <div class="container">
     <br>
@@ -42,9 +42,21 @@
     </div>
   </div>
   </div>
-  <div class="footer-copyright text-center">© 2021 Copyright: Bookstore.com</div>
-</footer>
-</div>  
+  <div class="row align-items-center">
+    <div class="col-lg-4 text-lg-left">Copyright © Your Website 2020</div>
+    <div class="col-lg-4 my-3 my-lg-0">
+      <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+      <a class="btn btn-dark btn-social mx-2" href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+      <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <a class="mr-3" href="#!">Privacy Policy</a>
+        <a href="#!">Terms of Use</a>
+        </div>
+        </div>
+        <br>
+    </footer>
+  </div>
 </template>
 
 <script>
