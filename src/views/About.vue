@@ -1,6 +1,6 @@
 <template>
   <div class="home container">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorld msg="Welcome to Your Vue.js Application"/>
  <Navbar></Navbar>
     <!-- <Front></Front> -->
     <!-- <product-list></product-list> -->
