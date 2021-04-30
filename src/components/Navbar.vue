@@ -11,6 +11,9 @@
         <li class="nav-item">
           <router-link  to="/Home" class="nav-link active" aria-current="page" >Home</router-link>
         </li>
+          <li class="nav-item">
+          <router-link  to="/prd" class="nav-link active" aria-current="page" >Products List</router-link>
+        </li>
         <li class="nav-item">
           <router-link  to="/About" class="nav-link" >About</router-link>
         </li>
