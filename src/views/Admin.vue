@@ -25,7 +25,7 @@
                         <span class="user-role"> {{email}} </span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
-                            <span>ONLINE</span>
+                            <span>Online</span>
                         </span>
                     </div>
                 </div>
