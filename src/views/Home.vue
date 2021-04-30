@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-12">
       <h6 class="text-uppercase font-weight-bold">Additional Information</h6><br>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
       <h6 class="text-uppercase font-weight-bold">Contact</h6>
