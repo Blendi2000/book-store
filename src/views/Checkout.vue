@@ -29,7 +29,7 @@
     </div>
 
     <div v-if="paidFor">
-      <h1>Noice, you bought a beautiful lamp!</h1>
+      <h1>Notice, you bought a beautiful lamp!</h1>
 
       <img src="https://media.giphy.com/media/j5QcmXoFWl4Q0/giphy.gif">
     </div>
