@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="email">Email address</label>
+                                <label for="email">Email Address</label>
                                 <input type="email"  v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
                             </div>
                             <div class="form-group">
