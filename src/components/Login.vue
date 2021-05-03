@@ -41,7 +41,7 @@
                              <h5 class="text-center">Create New Account</h5>
                              
                             <div class="form-group">
-                                <label for="name">Your name</label>
+                                <label for="name">Your Name</label>
                                 <input type="text" v-model="name" class="form-control" id="name" placeholder="Your nice name">
                             </div>
 
