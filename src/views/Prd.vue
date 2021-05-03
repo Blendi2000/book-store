@@ -35,7 +35,7 @@
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
       <h6 class="text-uppercase font-weight-bold">Contact</h6>
-      <p>Lagjia Kalabria p.n
+      <p>Lagjia Kalabria n.n
       <br/>info@mywebsite.com
       <br/>+ 383 38 541 400
       <br/>+ 383 44 541 400</p>
